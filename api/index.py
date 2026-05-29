@@ -32,3 +32,8 @@ app.add_middleware(
 def read_root():
     # Return a JSON response with a success message
     return {"message": "Hello! Your FastAPI backend is working and CORS is enabled!"}
+
+
+@app.get("/dragon")
+def get_dragon():
+    return {"message": "I am a Dragon!"}    
