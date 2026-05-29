@@ -1,16 +1,17 @@
+import os
 # Import the FastAPI class to create our application instance
 from fastapi import FastAPI
 # Import CORSMiddleware to allow frontend domains to access our backend
 from fastapi.middleware.cors import CORSMiddleware
+# Import FileResponse to serve files
+from fastapi.responses import FileResponse
 
 # Create the main FastAPI application object
 app = FastAPI()
 
 # Define a list of allowed origins (the URLs of your frontend)
 # Using "*" allows any frontend to connect, which is great for learning/testing
-origins = [
-    "*"
-]
+origins = ["*"]
 
 # Add the CORS middleware to our application to intercept and check requests
 app.add_middleware(
@@ -36,4 +37,6 @@ def read_root():
 
 @app.get("/dragon")
 def get_dragon():
-    return {"message": "I am a Dragon!"}    
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    dragon_path = os.path.join(current_dir, "../dragon.png")
+    return FileResponse(dragon_path, media_type="image/png")
