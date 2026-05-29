@@ -1,4 +1,5 @@
 import os
+import random
 # Import the FastAPI class to create our application instance
 from fastapi import FastAPI
 # Import CORSMiddleware to allow frontend domains to access our backend
@@ -38,5 +39,6 @@ def read_root():
 @app.get("/dragon")
 def get_dragon():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    dragon_path = os.path.join(current_dir, "../dragon.png")
+    selected_dragon = random.choice(["dragon1.png", "dragon2.png"])
+    dragon_path = os.path.join(current_dir, f"../{selected_dragon}")
     return FileResponse(dragon_path, media_type="image/png")
